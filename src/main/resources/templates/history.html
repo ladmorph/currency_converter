@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>История</title>
+</head>
+<body>
+ <body>
+  <form action="/history">
+
+          <input type="date" name="calendar" id="calendar">
+          <script>
+          document.getElementById('calendar').value = new Date().toISOString().substring(0, 10);
+          </script>
+
+          <select name="targetCurrency" id="targetCurrency">
+          <option th:each="currencies : ${currencies}"
+                                    th:utext="${currencies.charCode}"/>
+          </select>
+    <p>
+    <table border="3">
+<th>Исходная Валюта</th>
+<th>Целевая валюта</th>
+<th>Исходная сумма</th>
+<th>Получаеммая сумма</th>
+<th>Дата</th>
+
+   <th:block th:each="history : ${history}">
+       <tr>
+           <td th:text="${history.sourceCurrency}"></td>
+           <td th:text="${history.targetCurrency}"></td>
+           <td th:text="${history.sourceAmount}"></td>
+           <td th:text="${history.targetAmount}"></td>
+           <td th:text="${history.date}"></td>
+       </tr>
+   </th:block>
+</table>
+</p>
+<p><input type="submit" value="Поиск"></p>
+  </form>
+ </body>
+</body>
+</html>

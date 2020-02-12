@@ -3,13 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <style>
+    .modal{
+      padding: 50px;
+      background: #ccc;
+      position: fixed; top: 50%; left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+</style>
 </head>
-<body align="center">
+<body >
+<div class="modal">
     <h2>Конвертер валют</h2>
-    <form method="get">
+    <form method="post" action="/loginHandler">
+    <label for="login">Логин</label>
 <input type="text" name="login">
+<br>
+<label for="password">Пароль</label>
 <input type="text" name="password">
+<br>
 <input type="submit" value="Войти">
     </form>
+    </div>
 </body>
 </html>
