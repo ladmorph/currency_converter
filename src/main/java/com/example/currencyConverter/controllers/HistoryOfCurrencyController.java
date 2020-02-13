@@ -28,17 +28,15 @@ public class HistoryOfCurrencyController {
             modelMap.addAttribute("currencies", currencyRepository.findAll());
         }
         if (date != null && targetCurency != null) {
-            System.out.println(date);
             modelMap.addAttribute("history", repository.findAllByDateAndTargetCurrency(date, targetCurency));
             modelMap.addAttribute("currencies", currencyRepository.findAll());
         }
         if (targetCurency != null) {
             modelMap.addAttribute("history", repository.findAllByTargetCurrency(targetCurency));
-            modelMap.addAttribute("currencies", currencyRepository.findAll());
         } else {
             modelMap.addAttribute("history", repository.findAll());
-            modelMap.addAttribute("currencies", currencyRepository.findAll());
         }
+        modelMap.addAttribute("currencies", currencyRepository.findAll());
 
         return "history";
     }

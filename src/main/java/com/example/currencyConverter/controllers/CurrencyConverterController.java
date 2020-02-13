@@ -27,6 +27,7 @@ public class CurrencyConverterController {
     @Autowired
     private HistoryOfCurrencyRepository historyOfCurrencyRepository;
 
+
     @GetMapping("/converter")
     public String getConverter(Model modelMap) {
         if (!currencyRepository.findAll().isEmpty()) {
@@ -41,21 +42,24 @@ public class CurrencyConverterController {
         return "converter";
     }
 
+
     @PostMapping("converterHandler")
-    public ModelAndView converterHandler(@RequestParam("toValute") String toValute,
+    public ModelAndView converterHandler(@RequestParam("fromValute") String fromValute, @RequestParam("toValute") String toValute,
                                          @RequestParam("currencyValue") Integer amount) {
 
-        Currency currency = currencyRepository.getByName(toValute);
+        Currency fromCurrency = currencyRepository.getByName(fromValute);
+        Currency toCurrrency = currencyRepository.getByName(toValute);
 
-        double targetAmountTemp = amount / Double.valueOf(currency.getValue().replace(",", "."));
-        String targetAmount = new DecimalFormat("##0.00").format(targetAmountTemp);
+
+        double result = (Double.valueOf(fromCurrency.getValue().replace(",", ".")) / Double.valueOf(toCurrrency.getValue().replace(",", "."))) * amount;
+        String targetAmount = new DecimalFormat("##0.00").format(result);
 
         HistoryOfCurrency historyOfCurrency = new HistoryOfCurrency()
-                .setSourceCurrency("RUB")
-                .setTargetCurrency(currency.getCharCode())
+                .setSourceCurrency(fromCurrency.getCharCode())
+                .setTargetCurrency(toCurrrency.getCharCode())
                 .setSourceAmount(String.valueOf(amount))
                 .setTargetAmount(targetAmount)
-                .setDate(currency.getDate());
+                .setDate(toCurrrency.getDate());
 
         historyOfCurrencyRepository.save(historyOfCurrency);
 
@@ -66,5 +70,6 @@ public class CurrencyConverterController {
         Iterable<Currency> iterable = new CurrencyXmlHandler().parse().getCurrencies();
         currencyRepository.saveAll(iterable);
     }
+
 
 }
