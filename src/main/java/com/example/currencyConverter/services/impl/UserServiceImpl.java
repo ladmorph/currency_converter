@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkUserByUsernameAndPassword(String username, String password) {
-        User user  = userRepository.findByLoginAndAndPassword(username, password);
+        User user  = userRepository.findByUsernameAndPassword(username, password);
         if (user == null)
             return false;
         else

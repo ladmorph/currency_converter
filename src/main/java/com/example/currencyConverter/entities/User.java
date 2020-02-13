@@ -9,7 +9,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String login;
+    private String username;
     private String password;
 
     public Integer getId() {
@@ -21,11 +21,11 @@ public class User {
     }
 
     public String getLogin() {
-        return login;
+        return username;
     }
 
     public void setLogin(String login) {
-        this.login = login;
+        this.username = login;
     }
 
     public String getPassword() {
