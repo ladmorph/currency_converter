@@ -47,11 +47,21 @@ public class CurrencyConverterController {
     public ModelAndView converterHandler(@RequestParam("fromValute") String fromValute, @RequestParam("toValute") String toValute,
                                          @RequestParam("currencyValue") Integer amount) {
 
+        if (fromValute.equals(toValute)) {
+            return new ModelAndView(new RedirectView("/converter"));
+        }
+
         Currency fromCurrency = currencyRepository.getByName(fromValute);
         Currency toCurrrency = currencyRepository.getByName(toValute);
 
+        double result;
 
-        double result = (Double.valueOf(fromCurrency.getValue().replace(",", ".")) / Double.valueOf(toCurrrency.getValue().replace(",", "."))) * amount;
+        if (fromCurrency.getCharCode().equals("RUB")) {
+            result = Double.valueOf(toCurrrency.getValue().replace(",", ".")) * amount;
+        } else {
+            result = (Double.valueOf(fromCurrency.getValue().replace(",", ".")) / Double.valueOf(toCurrrency.getValue().replace(",", "."))) * amount;
+        }
+
         String targetAmount = new DecimalFormat("##0.00").format(result);
 
         HistoryOfCurrency historyOfCurrency = new HistoryOfCurrency()

@@ -8,6 +8,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class CurrencyXmlHandler {
@@ -40,6 +42,18 @@ public class CurrencyXmlHandler {
 
                 currencies.add(currency);
             }
+
+            Currency currency = new Currency()
+
+                    .setDate(LocalDate.now().toString())
+                    .setValuteId("-")
+                    .setNumCode(643)
+                    .setCharCode("RUB")
+                    .setNominal(1)
+                    .setName("Российский рубль")
+                    .setValue("");
+            currencies.add(currency);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

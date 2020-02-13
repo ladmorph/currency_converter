@@ -6,20 +6,22 @@
 </head>
 <body>
 <h2>Конвертер</h2>
-<form  method="post" th:action="@{/converterHandler}">
+<form method="post" th:action="@{/converterHandler}">
     <p>
         <label for="fromValute">Валюта из которой хотите перевести</label>
         <select name="fromValute" id="fromValute">
+            <option>Российский рубль</option>
             <option th:each="currencies : ${currencies}"
                     th:utext="${currencies.name}"/>
         </select>
     </p>
     <p>
-        <label for="currencyValue">Сумма в рублях: </label>
+        <label for="currencyValue">Сумма: </label>
         <input type="number" id="currencyValue" name="currencyValue">
     <p>
         <label for="toValute">Валюта в которую хотите перевести</label>
         <select name="toValute" id="toValute">
+            <option>Российский рубль</option>
             <option th:each="currencies : ${currencies}"
                     th:utext="${currencies.name}"/>
         </select>
