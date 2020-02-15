@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,12 +27,17 @@ public class CurrencyXmlHandler {
             Document doc = docBuilder.parse(stream);
             doc.getDocumentElement().normalize();
 
-
             NodeList nodeList = doc.getElementsByTagName("Valute");
-            for (int x = 0, size = nodeList.getLength(); x < size; x++) {
-                Currency currency = new Currency()
 
-                        .setDate(doc.getElementsByTagName("ValCurs").item(0).getAttributes().getNamedItem("Date").getNodeValue())
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+
+            for (int x = 0, size = nodeList.getLength(); x < size; x++) {
+
+                String date = sdf2.format(sdf.parse(doc.getElementsByTagName("ValCurs").item(0).getAttributes().getNamedItem("Date").getNodeValue()));
+
+                Currency currency = new Currency()
+                        .setDate(date)
                         .setValuteId(nodeList.item(x).getAttributes().getNamedItem("ID").getNodeValue())
                         .setNumCode(Integer.valueOf(doc.getElementsByTagName("NumCode").item(x).getTextContent()))
                         .setCharCode(doc.getElementsByTagName("CharCode").item(x).getTextContent())

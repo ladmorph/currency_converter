@@ -22,7 +22,7 @@ public class HistoryOfCurrencyController {
     public String getHistory(Model modelMap, @RequestParam(name = "calendar", required = false) String date,
                              @RequestParam(name = "targetCurrency", required = false) String targetCurency) {
 
-
+        System.out.println(date);
         if (date != null) {
             modelMap.addAttribute("history", repository.findAllByDate(date));
             modelMap.addAttribute("currencies", currencyRepository.findAll());
