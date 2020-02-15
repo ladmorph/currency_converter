@@ -51,7 +51,7 @@ public class CurrencyXmlHandler {
                     .setCharCode("RUB")
                     .setNominal(1)
                     .setName("Российский рубль")
-                    .setValue("");
+                    .setValue("1");
             currencies.add(currency);
 
         } catch (Exception e) {

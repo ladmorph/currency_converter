@@ -57,7 +57,7 @@ public class CurrencyConverterController {
         double result;
 
         if (fromCurrency.getCharCode().equals("RUB")) {
-            result = Double.valueOf(toCurrrency.getValue().replace(",", ".")) * amount;
+            result = amount / Double.valueOf(toCurrrency.getValue().replace(",", "."));
         } else {
             result = (Double.valueOf(fromCurrency.getValue().replace(",", ".")) / Double.valueOf(toCurrrency.getValue().replace(",", "."))) * amount;
         }

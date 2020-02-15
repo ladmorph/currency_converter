@@ -10,7 +10,6 @@
     <p>
         <label for="fromValute">Валюта из которой хотите перевести</label>
         <select name="fromValute" id="fromValute">
-            <option>Российский рубль</option>
             <option th:each="currencies : ${currencies}"
                     th:utext="${currencies.name}"/>
         </select>
@@ -21,7 +20,6 @@
     <p>
         <label for="toValute">Валюта в которую хотите перевести</label>
         <select name="toValute" id="toValute">
-            <option>Российский рубль</option>
             <option th:each="currencies : ${currencies}"
                     th:utext="${currencies.name}"/>
         </select>
