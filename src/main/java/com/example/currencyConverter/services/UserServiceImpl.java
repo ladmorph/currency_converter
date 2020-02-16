@@ -1,9 +1,8 @@
-package com.example.currencyConverter.services.impl;
+package com.example.currencyConverter.services;
 
 
 import com.example.currencyConverter.dao.UserRepository;
 import com.example.currencyConverter.entities.User;
-import com.example.currencyConverter.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkUserByUsernameAndPassword(String username, String password) {
-        User user  = userRepository.findByUsernameAndPassword(username, password);
+        User user = userRepository.findByUsernameAndPassword(username, password);
+        if (user == null)
+            return false;
+        else
+            return true;
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public boolean checkUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
         if (user == null)
             return false;
         else
