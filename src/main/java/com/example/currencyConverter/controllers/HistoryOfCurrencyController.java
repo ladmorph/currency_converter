@@ -7,39 +7,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HistoryOfCurrencyController {
 
     @Autowired
-    private HistoryOfCurrencyRepository repository;
+    private HistoryOfCurrencyRepository historyOfCurrencyRepository;
 
     @Autowired
     private CurrencyRepository currencyRepository;
 
     @GetMapping("/history")
-    public String getHistory(Model modelMap, @RequestParam(name = "calendar", required = false) String date,
-                             @RequestParam(name = "targetCurrency", required = false) String targetCurency) {
+    public String getHistory(Model modelMap) {
 
-        System.out.println(date);
-        if (date != null) {
-            modelMap.addAttribute("history", repository.findAllByDate(date));
-            modelMap.addAttribute("currencies", currencyRepository.findAll());
-        }
-        if (date != null && targetCurency != null) {
-            modelMap.addAttribute("history", repository.findAllByDateAndTargetCurrency(date, targetCurency));
-            modelMap.addAttribute("currencies", currencyRepository.findAll());
-        }
-        if (targetCurency != null) {
-            modelMap.addAttribute("history", repository.findAllByTargetCurrency(targetCurency));
-        } else {
-            modelMap.addAttribute("history", repository.findAll());
-        }
+        modelMap.addAttribute("history", historyOfCurrencyRepository.findAll());
         modelMap.addAttribute("currencies", currencyRepository.findAll());
 
         return "history";
     }
+
+    @PostMapping("/history")
+    public String getHistory(Model modelMap,
+                             @RequestParam(name = "calendar") String date,
+                             @RequestParam(name = "targetCurrency") String targetCurrency,
+                             @RequestParam(name = "sourceCurrency") String sourceCurrency) {
+
+
+        modelMap.addAttribute("history",
+                historyOfCurrencyRepository.findAllByTargetCurrencyAndSourceCurrencyAndDate(targetCurrency, sourceCurrency, date));
+
+        modelMap.addAttribute("currencies", currencyRepository.findAll());
+
+        return "history";
+    }
+
 }
 
 

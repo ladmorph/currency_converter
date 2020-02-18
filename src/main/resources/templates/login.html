@@ -5,7 +5,7 @@
 </head>
 <body>
 <div th:if="${error}">
-    Invalid username and password.
+    Пользователь с таким логином или паролем не существует!
 </div>
 <form th:action="@{/login}" method="post">
     <h1>Конвертер валют</h1>
@@ -13,7 +13,6 @@
     <div><label>Пароль: <input type="password" name="password"/> </label></div>
     <div><input type="submit" value="Войти"/></div>
 </form>
-
 <a href="/registration">Страница регистрации</a>
 </body>
 </html>

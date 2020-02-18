@@ -11,4 +11,6 @@ public interface HistoryOfCurrencyRepository extends JpaRepository<HistoryOfCurr
     List<HistoryOfCurrency> findAllByDateAndTargetCurrency(String date, String targetCurrency);
 
     List<HistoryOfCurrency> findAllByTargetCurrency(String targetCurrency);
+
+    List<HistoryOfCurrency> findAllByTargetCurrencyAndSourceCurrencyAndDate(String targetCurrency, String sourceCurrency, String date);
 }

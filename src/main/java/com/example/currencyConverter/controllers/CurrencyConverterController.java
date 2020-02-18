@@ -43,7 +43,7 @@ public class CurrencyConverterController {
     }
 
 
-    @PostMapping("converterHandler")
+    @PostMapping("converter")
     public ModelAndView converterHandler(@RequestParam("fromValute") String fromValute, @RequestParam("toValute") String toValute,
                                          @RequestParam("currencyValue") Integer amount) {
 
@@ -57,9 +57,11 @@ public class CurrencyConverterController {
         double result;
 
         if (fromCurrency.getCharCode().equals("RUB")) {
-            result = amount / Double.valueOf(toCurrrency.getValue().replace(",", "."));
+            result = amount /
+                    Double.parseDouble(toCurrrency.getValue().replace(",", "."));
         } else {
-            result = (Double.valueOf(fromCurrency.getValue().replace(",", ".")) / Double.valueOf(toCurrrency.getValue().replace(",", "."))) * amount;
+            result = (Double.parseDouble(fromCurrency.getValue().replace(",", ".")) /
+                    Double.parseDouble(toCurrrency.getValue().replace(",", "."))) * amount;
         }
 
         String targetAmount = new DecimalFormat("##0.00").format(result);

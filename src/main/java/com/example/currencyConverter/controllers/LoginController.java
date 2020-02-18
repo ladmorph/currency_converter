@@ -15,7 +15,7 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/login")
+    @GetMapping(value = {"/login", "/"})
     public String login(Model model, String error, String logout) {
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
@@ -31,7 +31,7 @@ public class LoginController {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         if(userService.checkUserByUsernameAndPassword(username, password)) {
-            return "converter";
+            return "redirect:/converter";
         } else {
             return "login";
         }
