@@ -35,7 +35,6 @@ public class RegistrationController {
         if (userService.checkUserByUsername(user.getUsername())) {
             return "registration";
         } else {
-            user.setActive(true);
             user.setRoles(Collections.singleton(Role.USER));
             userRepository.save(user);
             return "redirect:/login";

@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class CurrencyXmlHandler {
@@ -34,7 +33,8 @@ public class CurrencyXmlHandler {
 
             for (int x = 0, size = nodeList.getLength(); x < size; x++) {
 
-                String date = sdf2.format(sdf.parse(doc.getElementsByTagName("ValCurs").item(0).getAttributes().getNamedItem("Date").getNodeValue()));
+                String date = sdf2.format(sdf.parse(
+                        doc.getElementsByTagName("ValCurs").item(0).getAttributes().getNamedItem("Date").getNodeValue()));
 
                 Currency currency = new Currency()
                         .setDate(date)
@@ -50,7 +50,6 @@ public class CurrencyXmlHandler {
             }
 
             Currency currency = new Currency()
-
                     .setDate(LocalDate.now().toString())
                     .setValuteId("-")
                     .setNumCode(643)
@@ -58,6 +57,7 @@ public class CurrencyXmlHandler {
                     .setNominal(1)
                     .setName("Российский рубль")
                     .setValue("1");
+
             currencies.add(currency);
 
         } catch (Exception e) {

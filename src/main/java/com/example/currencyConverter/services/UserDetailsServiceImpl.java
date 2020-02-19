@@ -3,7 +3,6 @@ package com.example.currencyConverter.services;
 import com.example.currencyConverter.dao.UserRepository;
 import com.example.currencyConverter.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
