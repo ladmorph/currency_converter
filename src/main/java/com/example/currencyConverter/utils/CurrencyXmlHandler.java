@@ -21,10 +21,10 @@ public class CurrencyXmlHandler {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = dbf.newDocumentBuilder();
 
-            URL url = new URL("http://www.cbr.ru/scripts/XML_daily.asp");
+            URL url = new URL("http://www.cbr.ru/scripts/XML_daily.asp"); // website with information about the currency
             InputStream stream = url.openStream();
             Document doc = docBuilder.parse(stream);
-            doc.getDocumentElement().normalize();
+            doc.getDocumentElement().normalize(); // convert to normal view
 
             NodeList nodeList = doc.getElementsByTagName("Valute");
 
@@ -33,10 +33,14 @@ public class CurrencyXmlHandler {
 
             for (int x = 0, size = nodeList.getLength(); x < size; x++) {
 
+                // Get and give the date from the form dd.MM.yyyy to yyyy.MM.dd.
+                // This is necessary for the search to work correctly.
                 String date = sdf2.format(sdf.parse(
                         doc.getElementsByTagName("ValCurs").item(0).getAttributes().getNamedItem("Date").getNodeValue()));
 
+                //
                 Currency currency = new Currency()
+
                         .setDate(date)
                         .setValuteId(nodeList.item(x).getAttributes().getNamedItem("ID").getNodeValue())
                         .setNumCode(Integer.valueOf(doc.getElementsByTagName("NumCode").item(x).getTextContent()))
@@ -49,7 +53,9 @@ public class CurrencyXmlHandler {
                 currencies.add(currency);
             }
 
+            // We add it separately because this currency is not available, but it is needed.
             Currency currency = new Currency()
+
                     .setDate(LocalDate.now().toString())
                     .setValuteId("-")
                     .setNumCode(643)
