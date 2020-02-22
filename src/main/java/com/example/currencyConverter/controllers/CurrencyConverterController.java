@@ -30,8 +30,8 @@ public class CurrencyConverterController {
 
     @GetMapping("/converter")
     public String getConverter(Model modelMap) {
-        if (!currencyRepository.findAll().isEmpty()) {
-            if (currencyRepository.findAll().get(0).getDate() != LocalDate.now().toString()) {
+        if (!currencyRepository.findAll().isEmpty()) { // if there are records in the database
+            if (currencyRepository.findAll().get(0).getDate() != LocalDate.now().toString()) { // we check for their relevance
                 addCurrencies();
             }
         } else {
@@ -52,26 +52,29 @@ public class CurrencyConverterController {
         }
 
         Currency fromCurrency = currencyRepository.getByName(fromValute);
-        Currency toCurrrency = currencyRepository.getByName(toValute);
+        Currency toCurrency = currencyRepository.getByName(toValute);
 
         double result;
 
         if (fromCurrency.getCharCode().equals("RUB")) {
+            // We put the currency in a valid form and then calculate the target currency.
             result = amount /
-                    Double.parseDouble(toCurrrency.getValue().replace(",", "."));
+                    Double.parseDouble(toCurrency.getValue().replace(",", "."));
         } else {
+            // The same is true for all other currencies.
             result = (Double.parseDouble(fromCurrency.getValue().replace(",", ".")) /
-                    Double.parseDouble(toCurrrency.getValue().replace(",", "."))) * amount;
+                    Double.parseDouble(toCurrency.getValue().replace(",", "."))) * amount;
         }
 
+        // We give the double type in 2 characters after the point.
         String targetAmount = new DecimalFormat("##0.00").format(result);
 
         HistoryOfCurrency historyOfCurrency = new HistoryOfCurrency()
                 .setSourceCurrency(fromCurrency.getCharCode())
-                .setTargetCurrency(toCurrrency.getCharCode())
+                .setTargetCurrency(toCurrency.getCharCode())
                 .setSourceAmount(String.valueOf(amount))
                 .setTargetAmount(targetAmount)
-                .setDate(toCurrrency.getDate());
+                .setDate(toCurrency.getDate());
 
         historyOfCurrencyRepository.save(historyOfCurrency);
 
