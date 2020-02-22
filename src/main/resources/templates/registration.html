@@ -3,6 +3,7 @@
     <title>Spring Security Example</title>
 </head>
 <body>
+<div th:if="${error}">Данный пользователь уже существует</div>
 <form th:action="@{/registration}" method="post">
     <h1>Регистрация</h1>
     <div><label>Логин: <input type="text" name="username"/> </label></div>

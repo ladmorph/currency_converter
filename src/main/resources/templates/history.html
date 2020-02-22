@@ -13,14 +13,14 @@
     </script>
 
     <select name="sourceCurrency" id="sourceCurrency">
-        <option th:each="currencies : ${currencies}"
-                th:utext="${currencies.charCode}">
+        <option th:each="currency : ${currencies}"
+                th:text="${currency.charCode}">
         </option>
     </select>
 
     <select name="targetCurrency" id="targetCurrency">
-        <option th:each="currencies : ${currencies}"
-                th:utext="${currencies.charCode}">
+        <option th:each="currency : ${currencies}"
+                th:text="${currency.charCode}">
         </option>
     </select>
     <p>

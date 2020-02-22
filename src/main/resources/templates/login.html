@@ -3,9 +3,8 @@
     <title>Spring Security Example </title>
 </head>
 <body>
-<div th:if="${error}">
-    Пользователь с таким логином или паролем не существует!
-</div>
+<div th:if="${error}">Неверный логин или пароль</div>
+<div th:if="${logout}">Вы успешно вышли!</div>
 <form th:action="@{/login}" method="post">
     <h1>Конвертер валют</h1>
     <div><label>Логин: <input type="text" name="username"/> </label></div>

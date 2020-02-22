@@ -26,8 +26,9 @@ public class LoginController {
                 .setUsername("admin")
                 .setPassword("admin")
                 .setRoles(Collections.singleton(Role.ADMIN));
-
-        userService.save(user);
+        if (!userService.checkUserByUsername(user.getUsername())) {
+            userService.save(user);
+        }
         return "login";
     }
 
