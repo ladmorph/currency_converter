@@ -1,5 +1,7 @@
 package com.example.currencyConverter.controllers;
 
+import com.example.currencyConverter.entities.Role;
+import com.example.currencyConverter.entities.User;
 import com.example.currencyConverter.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,21 +10,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.Collections;
+
 
 @Controller
 public class LoginController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping(value = {"/login", "/"})
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+    public String login() {
 
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+        User user = new User()
+                .setUsername("admin")
+                .setPassword("admin")
+                .setRoles(Collections.singleton(Role.ADMIN));
 
+        userService.save(user);
         return "login";
     }
 
@@ -30,10 +35,10 @@ public class LoginController {
     public String login(WebRequest request) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        if(userService.checkUserByUsernameAndPassword(username, password)) {
-            return "redirect:/converter";
+        if (userService.checkUserByUsernameAndPassword(username, password)) {
+            return "redirect:/converter"; // // if the user does not exist
         } else {
-            return "login";
+            return "registration"; // if the user does not exist
         }
     }
 
