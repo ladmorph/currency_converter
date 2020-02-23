@@ -39,7 +39,7 @@ public class LoginController {
         if (userService.checkUserByUsernameAndPassword(username, password)) {
             return "redirect:/converter"; // // if the user does not exist
         } else {
-            return "registration"; // if the user does not exist
+            return "registration"; // if a user exist
         }
     }
 
