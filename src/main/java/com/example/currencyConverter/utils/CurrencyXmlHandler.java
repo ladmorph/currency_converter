@@ -18,10 +18,11 @@ public class CurrencyXmlHandler {
 
     public CurrencyXmlHandler parse() {
         try {
+            // Xml parser.
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = dbf.newDocumentBuilder();
 
-            URL url = new URL("http://www.cbr.ru/scripts/XML_daily.asp"); // website with information about the currency
+            URL url = new URL("http://www.cbr.ru/scripts/XML_daily.asp"); // Website with information about the currency.
             InputStream stream = url.openStream();
             Document doc = docBuilder.parse(stream);
             doc.getDocumentElement().normalize(); // convert to normal view
