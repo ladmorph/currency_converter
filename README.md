@@ -4,8 +4,7 @@ This is a simple currency Converter that takes data from the Central Bank of Rus
 
 Installation
 ------------
-1. Install Java 11.
-2. Git clone:
+Git clone:
 ```
 https://github.com/ladmorph/currency_converter.git
 ```
